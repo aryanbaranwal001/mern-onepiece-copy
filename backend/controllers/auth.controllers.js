@@ -81,5 +81,13 @@ const {email, password} = req.body;
 };
 
 export const logout = async (req, res) => {
-  res.send("logout");
+  try {
+    res.cookie("jwt", "", { maxAge: 0 });
+    return res.status(200).json({ message: "Logged out successfully" });    
+  } catch (error) {
+    console.log("error in logout",error);
+    return res.status(500).json({message:"internal server error"})
+    
+  }
+
 };

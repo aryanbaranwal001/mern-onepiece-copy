@@ -12,7 +12,7 @@ const generateToken = (userId, res) => {
   });
 
   //sets the cookie
-  res.cookie('JWTtoken', token, {
+  res.cookie('jwt', token, {
     expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
     maxAge: 1000 * 60 * 60 * 24,
     httpOnly: true,
