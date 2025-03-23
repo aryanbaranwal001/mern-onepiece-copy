@@ -1,4 +1,4 @@
-import { UserRound, Lock, User, Mail, Loader } from "lucide-react";
+import { UserRound, Lock, User, Mail } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { axiosInstance } from "../lib/axios";
