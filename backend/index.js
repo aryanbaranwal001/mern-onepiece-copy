@@ -1,10 +1,12 @@
 import authRoutes from "./routes/auth.routes.js";
 import theoryAuthorRoutes from "./routes/thoeryAuthor.routes.js";
 import theoryCommonRoutes from "./routes/theoryCommon.routes.js";
+import connectDB from "./lib/db.js";
 
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import mongoose from "mongoose";
 dotenv.config();
 
 const app = express();
@@ -19,4 +21,5 @@ app.use("/api/common", theoryCommonRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+  connectDB();
 });

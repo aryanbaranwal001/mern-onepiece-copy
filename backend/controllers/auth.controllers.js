@@ -1,5 +1,11 @@
+import UserModel from "../models/user.model.js";
+
 export const signup = async (req, res) => {
-  res.send("signup");
+const {username, email, password} = req.body;
+
+
+
+
 };
 
 export const login = async (req, res) => {
