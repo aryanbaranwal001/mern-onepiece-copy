@@ -6,7 +6,6 @@ import connectDB from "./lib/db.lib.js";
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import mongoose from "mongoose";
 dotenv.config();
 
 const app = express();
