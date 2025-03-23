@@ -23,4 +23,4 @@ const theorySchema = new mongoose.Schema(
 
 const TheoryModel = mongoose.model("theories", theorySchema);
 
-module.exports = TheoryModel;
+export default TheoryModel;
