@@ -3,7 +3,13 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { axiosInstance } from "../lib/axios";
 import { useNavigate, Link } from "react-router-dom";
+
+
 const SignUp = () => {
+  
+  
+
+
   const Navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "aryanbaranwal",

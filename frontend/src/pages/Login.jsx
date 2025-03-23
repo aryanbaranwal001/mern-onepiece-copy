@@ -1,11 +1,18 @@
 import { UserRound, Lock, Mail } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-// import { axiosInstance } from "../lib/axios";
 import { useNavigate, Link } from "react-router-dom";
-import { useAuthStore } from "../store/useAuth";
+import { useAuthStore } from "../store/useAuth.js";
+
+
+
 
 const Login = () => {
+  
+  
+
+
+
   const Navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "aryan@gmail.com",
