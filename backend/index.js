@@ -2,6 +2,7 @@ import authRoutes from "./routes/auth.routes.js";
 import theoryAuthorRoutes from "./routes/thoeryAuthor.routes.js";
 import theoryCommonRoutes from "./routes/theoryCommon.routes.js";
 import connectDB from "./lib/db.lib.js";
+import cookieParser from "cookie-parser";
 
 import express from "express";
 import cors from "cors";
@@ -10,11 +11,11 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
 app.use(cors({
   origin: 'http://localhost:5173',
   credentials: true // allow cookies and authorization headers
 }));
+app.use(cookieParser());
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);

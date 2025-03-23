@@ -2,19 +2,25 @@ import {Latest, Login, MyTheories, SignUp, Top} from "./pages";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import Navbar from "./components/Navbar";
-function App() {
+import { useAuthStore } from "./store/useAuth.js";
 
+
+function App() {
+  const {userLoggedIn, check} = useAuthStore();
+  // check if user is logged in
+  check();
+
+  
   return (
     <>
       <Toaster />
-      <Navbar />
+      {userLoggedIn ? <Navbar /> : ""}
       <Routes>
-        <Route path="/" element={<Top />} />
-        <Route path="/latest" element={<Latest />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/mytheories" element={<MyTheories />} />
-        <Route path="*" element={<Navigate to="/" />} />
+        <Route path="/top" element={ userLoggedIn ? <Top />  : <Navigate to="/signup" />} />
+        <Route path="/latest" element={userLoggedIn ? <Latest />  : <Navigate to="/signup" /> } />
+        <Route path="/login" element={userLoggedIn ? <Navigate to="/top" /> : <Login />} />
+        <Route path="/signup" element={userLoggedIn ? <Navigate to="/top" /> : <SignUp />  } />
+        <Route path="/mytheories" element={ userLoggedIn ? <MyTheories />  : <Navigate to="/signup" />   } />
       </Routes>
     </>
   )

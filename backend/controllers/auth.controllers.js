@@ -91,3 +91,21 @@ export const logout = async (req, res) => {
     return res.status(500).json({message:"internal server error"})
   }
 };
+
+
+export const check = async (req, res) => {
+  try {
+    const token = req.cookies.jwt;
+    if (!token) {
+      return res.status(200).json({ userLoggedIn: false });
+    }
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    if (!decoded) {
+      return res.status(200).json({ userLoggedIn: false });
+    }
+    return res.status(200).json({ userLoggedIn: true });
+  } catch (error) {
+    console.log("error in check",error);
+    return res.status(500).json({message:"internal server error"});
+  }
+}  

@@ -1,14 +1,16 @@
 import { CircleUserRound, LogOut } from "lucide-react";
-import { axiosInstance } from "../lib/axios";
+import { useAuthStore } from "../store/useAuth";
+import { useNavigate } from "react-router-dom";
+
 const Navbar = () => {
+  const navigate = useNavigate();
+  const { logout } = useAuthStore();
+
   const handleLogout = async () => {
-    try {
-      axiosInstance.get("/auth/logout")    
-    } catch (error) {
-      console.log("error in handleLogout", error);
-    }
-  }
-  
+    logout();
+    navigate("/login");
+  };
+
   return (
     <>
       <div className="navbar bg-base-100 flex justify-between mt-2 mx-10">
