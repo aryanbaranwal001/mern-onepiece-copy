@@ -1,7 +1,7 @@
 import authRoutes from "./routes/auth.routes.js";
 import theoryAuthorRoutes from "./routes/thoeryAuthor.routes.js";
 import theoryCommonRoutes from "./routes/theoryCommon.routes.js";
-import connectDB from "./lib/db.js";
+import connectDB from "./lib/db.lib.js";
 
 import express from "express";
 import cors from "cors";

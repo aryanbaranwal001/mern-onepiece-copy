@@ -3,7 +3,6 @@ import bcrypt from "bcryptjs";
 
 
 
-
 export const signup = async (req, res) => {
   
   try {
@@ -25,19 +24,19 @@ export const signup = async (req, res) => {
   }
 
   //hashes password
-
   const salt = await bcrypt.genSalt(10);
   const hashPassword = await bcrypt.hash(password, salt);
 
+  //creates new user
   const newUser = new UserModel({
     username,
     email,
     password: hashPassword,
   });
-
   await newUser.save();
 
-  return res.status(201).json({ message: "User registered successfully" }z);
+  //final response
+  return res.status(201).json({ message: "User registered successfully" });
     
   } catch (error) {
     console.log("error in signup",error);
