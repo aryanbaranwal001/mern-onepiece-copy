@@ -20,8 +20,10 @@ export const signup = async (req, res) => {
   // checks if user already exits
   const user = await UserModel.findOne({ email })  
   if (user) {
-    return res.status(400).json({ message: "User with this email already exists" });
+    return res.status(200).json({ doesUserExist: true });
   }
+  // checks this at the frontend
+
 
   //hashes password
   const salt = await bcrypt.genSalt(10);
@@ -36,7 +38,7 @@ export const signup = async (req, res) => {
   await newUser.save();
 
   //final response
-  return res.status(201).json({ message: "User registered successfully" });
+  return res.status(201).json(newUser);
     
   } catch (error) {
     console.log("error in signup",error);

@@ -1,4 +1,4 @@
-import TheoryModel from "../models/theory.model";
+import TheoryModel from "../models/theory.model.js";
 
 export const create = async (req, res) => {
   try {
