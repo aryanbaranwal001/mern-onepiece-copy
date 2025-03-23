@@ -148,7 +148,7 @@ const SignUp = () => {
         <span className=" text-[16px] text-secondary">
           Already a user ?&nbsp;&nbsp; Click here to{" "}
           <Link className="text-primary underline italic" to={"/login"}>
-            Sign In
+            Log In
           </Link>
         </span>
       </div>

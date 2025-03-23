@@ -68,6 +68,7 @@ const {email, password} = req.body;
     const token = generateToken(user._id, res);
     return res.status(200).json({
       email,
+      isTokenGenerated: true,
     });
 
 
