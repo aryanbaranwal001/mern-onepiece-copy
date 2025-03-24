@@ -115,10 +115,20 @@ export const check = async (req, res) => {
 export const getuser = async (req, res) => {
   try {
     const user = req.user;
-    console.log(user);
     return res.status(200).json(user);
   } catch (error) {
     console.log("error in getUser",error);
+    return res.status(500).json({message:"internal server error"});
+  }
+}
+
+export const getAuthorFromId = async (req, res) => {
+  try {
+    const { authorId }= req.params;
+    const user = await UserModel.findById(authorId).select("username");
+    return res.status(200).json(user);
+  } catch (error) {
+    console.log("error in getAuthorFromId",error);
     return res.status(500).json({message:"internal server error"});
   }
 }
