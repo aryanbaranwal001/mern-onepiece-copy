@@ -60,7 +60,7 @@ export default function MyThoeryRight() {
         {/* User Info */}
         <div className="flex items-center gap-3 mb-5">
           <span className="font-semibold">
-            {userRef.current ? userRef.current.username : "Username"}
+            {"@"}{userRef.current ? userRef.current.username : "Username"}
           </span>
         </div>
 

@@ -7,16 +7,12 @@ import { useEffect } from "react";
 
 const App = () => {
   const { userLoggedIn, check, loading } = useAuthStore();
-  console.log("userLoggedIn App before", userLoggedIn);
 
   useEffect(() => {
     check();
-  }, [check]); // 
+  }, [check]); //
 
-  
   if (loading) return <p>Loading...</p>;
-  
-  console.log("userLoggedIn App after", userLoggedIn);
 
   return (
     <>
