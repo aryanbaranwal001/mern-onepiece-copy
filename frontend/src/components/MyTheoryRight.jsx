@@ -36,7 +36,9 @@ export default function MyThoeryRight() {
         toast.success("New Post Created");
         setTitle("");
         setText("");
-        window.location.reload();
+        setTimeout(() => {
+          window.location.reload();
+        }, 300);
       }
     } catch (err) {
       toast.error("Could not create post");

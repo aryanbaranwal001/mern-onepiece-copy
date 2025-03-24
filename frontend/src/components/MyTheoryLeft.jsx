@@ -29,12 +29,12 @@ export default function MyTheoryLeft() {
       {/* Scrollable Comments Section with hidden scrollbar */}
       <div className="max-h-[700px] overflow-y-auto space-y-5 p-2 scrollbar-none">
         {theoriesRef.current
-          ? theoriesRef.current.map((comment, index) => (
+          ? theoriesRef.current.theories.map((comment, index) => (
               <div
                 key={index}
                 className="rounded-md p-4 bg-gray-800 text-white shadow-md"
               >
-                <p className="text-sm text-gray-400">@{comment.username}</p>
+                <p className="text-sm text-gray-400">@{theoriesRef.current.username}</p>
                 <h3 className="text-lg font-semibold">{comment.title}</h3>
                 <p className="text-gray-300">{comment.text}</p>
               </div>

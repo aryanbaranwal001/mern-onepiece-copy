@@ -92,8 +92,8 @@ export const getAuthorTheories = async (req, res) => {
     if (!theories) {
       return res.status(404).json({ message: "Theories not found" });
     }
-
-    return res.status(200).json(theories);
+    res.user = req.user;
+    return res.status(200).json({theories, username: req.user.username});
   } catch (error) {
     console.log("Error getting author theories:", error);
     return res.status(500).json({ message: "Internal server error" });
