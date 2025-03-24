@@ -18,7 +18,11 @@ export default function MyTheoryLeft() {
         const arr = [];
         for (let i = 0; i < theoryArr.length; i++) {
           arr.push({
-            [theoryArr[i]._id]: false,
+            [theoryArr[i]._id]: {
+              isUpdating: false,
+              title: theoryArr[i].title,
+              text: theoryArr[i].text,
+            },
           });
         }
         setAreTheoriesUpdating(arr);
@@ -31,9 +35,22 @@ export default function MyTheoryLeft() {
     return <p>Loading.....</p>;
   }
 
-  const handleUpdate = async () => {
-    console.log("Update clicked");
+  const handleUpdate = async (theoryId) => {
+    setAreTheoriesUpdating((prev) =>
+      prev.map((item) =>
+        theoryId in item
+          ? {
+              [theoryId]: {
+                ...item[theoryId], // Preserve existing properties
+                isUpdating: true, // Toggle or modify fields
+              },
+            }
+          : item
+      )
+    );
   };
+
+  console.log("updatedArry", areTheoriesUpdating);
 
   const handleDelete = async (theoryId) => {
     try {
@@ -67,8 +84,72 @@ export default function MyTheoryLeft() {
                 <p className="text-sm text-gray-400">
                   @{theoriesRef.current.username}
                 </p>
-                <h3 className="text-lg font-semibold">{comment.title}</h3>
-                <p className="text-gray-300">{comment.text}</p>
+
+                {/* Editable Title  */}
+                {areTheoriesUpdating[index][comment._id].isUpdating ? (
+                  <input
+                    type="text"
+                    placeholder="Title"
+                    value={areTheoriesUpdating[index][comment._id].title}
+                    onChange={(e) => {
+                      const newTitle = e.target.value;
+
+                      setAreTheoriesUpdating((prev) =>
+                        prev.map((item, i) =>
+                          i === index
+                            ? {
+                                ...item,
+                                [comment._id]: {
+                                  ...item[comment._id], // Preserve existing fields
+                                  title: newTitle, // Update only title
+                                },
+                              }
+                            : item
+                        )
+                      );
+                    }}
+                    className="w-full text-xl font-bold bg-transparent border border-gray-600 outline-none 
+             placeholder-opacity-50 p-2 rounded-lg 
+                transition"
+                  />
+                ) : (
+                  <h3 className="text-lg font-semibold">{comment.title}</h3>
+                )}
+
+                {/* Editable Text  */}
+                {areTheoriesUpdating[index][comment._id].isUpdating ? (
+                  <input
+                    type="text"
+                    placeholder="text"
+                    value={areTheoriesUpdating[index][comment._id].text}
+                    onChange={(e) => {
+                      const newText = e.target.value;
+
+                      setAreTheoriesUpdating((prev) =>
+                        prev.map((item, i) =>
+                          i === index
+                            ? {
+                                ...item,
+                                [comment._id]: {
+                                  ...item[comment._id], // Preserve existing fields
+                                  text: newText, // Update only title
+                                },
+                              }
+                            : item
+                        )
+                      );
+                    }}
+                    className="w-full text-[14px] font-bold bg-transparent border border-gray-600 outline-none 
+             placeholder-opacity-50 p-2 rounded-lg 
+                transition"
+                  />
+                ) : (
+                  <p className="text-gray-300">{comment.text}</p>
+                )}
+
+
+
+                
 
                 {/* Buttons for Delete & Update */}
                 <div className="flex gap-2 mt-2 items-center justify-center">
