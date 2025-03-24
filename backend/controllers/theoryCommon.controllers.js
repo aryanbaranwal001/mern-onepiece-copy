@@ -48,20 +48,17 @@ export const upvote = async (req, res) => {
     let update = {};
 
     if (isUpvoted) {
-      // If already upvoted, remove the upvote (toggle off)
       update = {
         $pull: { upvotes: userId },
         $inc: { upvoteCount: -1 },
       };
     } else if (isDownvoted) {
-      // If downvoted, remove from downvotes and add to upvotes
       update = {
         $pull: { downvotes: userId },
         $addToSet: { upvotes: userId },
         $inc: { downvoteCount: -1, upvoteCount: 1 },
       };
     } else {
-      // If neutral, just add the upvote
       update = {
         $addToSet: { upvotes: userId },
         $inc: { upvoteCount: 1 },
@@ -99,20 +96,17 @@ export const downvote = async (req, res) => {
     let update = {};
 
     if (isDownvoted) {
-      // If already downvoted, remove the downvote (toggle off)
       update = {
         $pull: { downvotes: userId },
         $inc: { downvoteCount: -1 },
       };
     } else if (isUpvoted) {
-      // If upvoted, remove from upvotes and add to downvotes
       update = {
         $pull: { upvotes: userId },
         $addToSet: { downvotes: userId },
         $inc: { upvoteCount: -1, downvoteCount: 1 },
       };
     } else {
-      // If neutral, just add the downvote
       update = {
         $addToSet: { downvotes: userId },
         $inc: { downvoteCount: 1 },

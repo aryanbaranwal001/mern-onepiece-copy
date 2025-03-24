@@ -68,32 +68,62 @@ export default function Latest() {
 
   };
   
-
+  
+  
   useEffect(() => {
     const fetchLatestTheories = async () => {
+      const arrUserVotedInParticularTheory = [];
       if (!latestTheoriesRef.current) {
         const latestTheories = await getLatestTheories();
         latestTheoriesRef.current = latestTheories;
-
+        
         for (let i = 0; i < latestTheoriesRef.current.length; i++) {
-          const user = await getAuthorFromId(
+          const author = await getAuthorFromId(
             latestTheoriesRef.current[i].author
           );
-          latestTheoriesRef.current[i].author = user.username;
-        }
-        // setting isVoted to null for all theories        
-        const isVotedTempArr = [];
-        for (let i = 0; i < latestTheoriesRef.current.length; i++) {
-            isVotedTempArr.push({ id: latestTheoriesRef.current[i]._id, voted: null, upvoteNumber: latestTheoriesRef.current[i].upvoteCount, downvoteNumber: latestTheoriesRef.current[i].downvoteCount });
-        }
-        setIsVotedArray();
-        setIsVoted(isVotedTempArr);
+          latestTheoriesRef.current[i].author = author.username;
+          
+          // get the user id from the backend
+          const res = await axiosInstance.get("/auth/getuser");
+          const user = res.data;
 
-      }
-    };
+          // checking if user has upvoted or downvoted in a particular theory
+          let isVoted = false;
+          for (let j = 0; j < latestTheoriesRef.current[i].upvotes.length; j++) {
+            if (latestTheoriesRef.current[i].upvotes[j] === user._id) {
+              arrUserVotedInParticularTheory.push({ id: latestTheoriesRef.current[i]._id, voted: "upvoted" });
+              isVoted = true;
+            }
+          }
+          for (let j = 0; j < latestTheoriesRef.current[i].downvotes.length; j++) {
+            if (latestTheoriesRef.current[i].downvotes[j] === user._id) {
+              arrUserVotedInParticularTheory.push({ id: latestTheoriesRef.current[i]._id, voted: "downvoted"});
+              isVoted = true;
+            }
+          }
+            if (isVoted === false) {
+              arrUserVotedInParticularTheory.push({ id: latestTheoriesRef.current[i]._id, voted: null});
+            }
+            }          
+            
+          }
+          // setting isVoted to null for all theories        
+          const isVotedTempArr = [];
+          for (let i = 0; i < latestTheoriesRef.current.length; i++) {
+              isVotedTempArr.push({ id: latestTheoriesRef.current[i]._id, voted: arrUserVotedInParticularTheory[i].voted, upvoteNumber: latestTheoriesRef.current[i].upvoteCount, downvoteNumber: latestTheoriesRef.current[i].downvoteCount });
+          }
+          setIsVotedArray();
+          setIsVoted(isVotedTempArr);
+        }
 
-    fetchLatestTheories();
-  }, []);
+        fetchLatestTheories();
+      
+      
+      }, []);
+  
+
+
+  
 
 
   if (!gotLatestTheories || !gotAuthors || !isVotedArrayComplete) {
