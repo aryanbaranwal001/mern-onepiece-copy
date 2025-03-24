@@ -50,7 +50,14 @@ export default function MyTheoryLeft() {
     );
   };
 
-  console.log("updatedArry", areTheoriesUpdating);
+
+  const UpdatePost = async (theoryId) => {
+    console.log("UpdatePost");
+  }
+  const RevertBack = async () => {
+      window.location.reload();
+  }
+
 
   const handleDelete = async (theoryId) => {
     try {
@@ -149,24 +156,69 @@ export default function MyTheoryLeft() {
 
 
 
-                
+                  {console.log(areTheoriesUpdating[index][comment._id].isUpdating)}
+
+                  { areTheoriesUpdating[index][comment._id].isUpdating ? (
+
+                    // while updating buttons 
+                    
+                    <div className="flex gap-2 mt-2 items-center justify-center">
+                    <button
+                      onClick={() => UpdatePost(comment._id)}
+                      className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600"
+                    >
+                      Update Post
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        const title = comment.title;
+                        const text = comment.text;
+
+                        // reverting title and text
+
+                        setAreTheoriesUpdating((prev) =>
+                          prev.map((item, i) =>
+                            i === index
+                              ? {
+                                  ...item,
+                                  [comment._id]: {
+                                    ...item[comment._id], // Preserve existing fields
+                                    title: title, // Update title
+                                    text: text, // Update title
+                                    isUpdating: false, // Update condition
+                                  },
+                                }
+                              : item
+                          )
+                        );
+                      }}
+                      className="bg-red-700 text-white px-3 py-1 rounded-md hover:bg-red-800"
+                    >
+                      Revert Back
+                    </button>
+                  </div>
+                  ) : (
+
+                    <div className="flex gap-2 mt-2 items-center justify-center">
+                      <button
+                        onClick={() => handleUpdate(comment._id)}
+                        className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600"
+                      >
+                        Update
+                      </button>
+
+                      <button
+                        onClick={() => handleDelete(comment._id)}
+                        className="bg-red-700 text-white px-3 py-1 rounded-md hover:bg-red-800"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  )}                
+
 
                 {/* Buttons for Delete & Update */}
-                <div className="flex gap-2 mt-2 items-center justify-center">
-                  <button
-                    onClick={() => handleUpdate(comment._id)}
-                    className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600"
-                  >
-                    Update
-                  </button>
-
-                  <button
-                    onClick={() => handleDelete(comment._id)}
-                    className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600"
-                  >
-                    Delete
-                  </button>
-                </div>
               </div>
             ))
           : ""}
