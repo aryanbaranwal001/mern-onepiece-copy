@@ -50,13 +50,24 @@ export default function MyTheoryLeft() {
     );
   };
 
+  const UpdatePost = async (theoryId, index) => {
+    try {
+      const res = await axiosInstance.post(`/author/update/${theoryId}`, {
+        title: areTheoriesUpdating[index][theoryId].title,
+        text: areTheoriesUpdating[index][theoryId].text,
+      });
 
-  const UpdatePost = async (theoryId) => {
-    console.log("UpdatePost");
-  }
-  const RevertBack = async () => {
-      window.location.reload();
-  }
+      if (res.data.isTheoryUpdated === true) {
+        toast.success("Theory Updated Successfully");
+        setTimeout(() => {
+          window.location.reload();
+        }, 400);
+      }
+    } catch (error) {
+      console.log("error in UpdatePost", error);
+      toast.error("Theory Updation Failed");
+    }
+  };
 
 
   const handleDelete = async (theoryId) => {
@@ -154,17 +165,16 @@ export default function MyTheoryLeft() {
                   <p className="text-gray-300">{comment.text}</p>
                 )}
 
+                {console.log(
+                  areTheoriesUpdating[index][comment._id].isUpdating
+                )}
 
+                {areTheoriesUpdating[index][comment._id].isUpdating ? (
+                  // while updating buttons
 
-                  {console.log(areTheoriesUpdating[index][comment._id].isUpdating)}
-
-                  { areTheoriesUpdating[index][comment._id].isUpdating ? (
-
-                    // while updating buttons 
-                    
-                    <div className="flex gap-2 mt-2 items-center justify-center">
+                  <div className="flex gap-2 mt-2 items-center justify-center">
                     <button
-                      onClick={() => UpdatePost(comment._id)}
+                      onClick={() => UpdatePost(comment._id, index)}
                       className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600"
                     >
                       Update Post
@@ -198,25 +208,23 @@ export default function MyTheoryLeft() {
                       Revert Back
                     </button>
                   </div>
-                  ) : (
+                ) : (
+                  <div className="flex gap-2 mt-2 items-center justify-center">
+                    <button
+                      onClick={() => handleUpdate(comment._id)}
+                      className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600"
+                    >
+                      Update
+                    </button>
 
-                    <div className="flex gap-2 mt-2 items-center justify-center">
-                      <button
-                        onClick={() => handleUpdate(comment._id)}
-                        className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600"
-                      >
-                        Update
-                      </button>
-
-                      <button
-                        onClick={() => handleDelete(comment._id)}
-                        className="bg-red-700 text-white px-3 py-1 rounded-md hover:bg-red-800"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  )}                
-
+                    <button
+                      onClick={() => handleDelete(comment._id)}
+                      className="bg-red-700 text-white px-3 py-1 rounded-md hover:bg-red-800"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                )}
 
                 {/* Buttons for Delete & Update */}
               </div>

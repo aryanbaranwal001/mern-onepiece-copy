@@ -51,7 +51,7 @@ export const update = async (req, res) => {
       return res.status(404).json({ message: "Theory not found" });
     }
 
-    return res.status(200).json({ message: "Theory updated successfully", theory: updatedTheory });
+    return res.status(200).json({ isTheoryUpdated: true });
   } catch (error) {
     console.log("Error updating theory:", error);
     return res.status(500).json({ message: "Internal server error" });
