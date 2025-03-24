@@ -16,12 +16,13 @@ export const top = async (req, res) => {
     const sortedTheories = await TheoryModel.aggregate([
       {
         $addFields: {
-          upvoteCount: { $size: "$upvotes" }, // Calculate number of upvotes
-          downvoteCount: { $size: "$downvotes" }, // Calculate number of downvotes
+          upvoteCount: { $size: "$upvotes" },
+          downvoteCount: { $size: "$downvotes" },
+          totalVotes: { $add: [{ $size: "$upvotes" }, { $size: "$downvotes" }] }, // Sum of upvotes and downvotes
         },
       },
       {
-        $sort: { upvoteCount: -1 }, // Sort by upvote count in descending order
+        $sort: { totalVotes: -1 }, // Sort by total votes in descending order
       },
     ]);
     res.status(200).send(sortedTheories);
@@ -30,6 +31,7 @@ export const top = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
 
 export const upvote = async (req, res) => {
   try {

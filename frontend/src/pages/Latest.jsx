@@ -169,7 +169,7 @@ export default function Latest() {
       <div className="z-[10] w-full fixed bg-base-100 right-0 top-0 left-0 h-[200px]"></div>
       <div className="max-w-[800px] w-full flex flex-col p-4 rounded-xl relative shadow-md mt-[60px] mx-auto">
         <div className="h-[80px] z-[20] w-full bg-base-100 flex items-start justify-center text-3xl font-bold mb-3 text-accent text-center fixed left-0 right-0">
-          <span className="">Latest Posts</span>
+          <span className="">Latest Theories</span>
         </div>
 
         <div className="h-full overflow-y-auto space-y-5 p-2 scrollbar-none pt-[90px]">
