@@ -15,9 +15,7 @@ const Navbar = () => {
   return (
     <>
       <div className="relative z-[20]">
-          <div className="h-[78px]">
-
-          </div>
+        <div className="h-[78px]"></div>
 
         <div className="navbar bg-base-100 flex mt-2 px-4 justify-between border-box fixed top-[-10px] left-0 right-0">
           <div className="flex flex-row gap-6">

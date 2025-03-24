@@ -24,7 +24,6 @@ export const signup = async (req, res) => {
   }
   // checks this at the frontend
 
-
   //hashes password
   const salt = await bcrypt.genSalt(10);
   const hashPassword = await bcrypt.hash(password, salt);
@@ -44,8 +43,6 @@ export const signup = async (req, res) => {
     console.log("error in signup",error);
     return res.status(500).json({message:"internal server error"});
   }
-
-
 };
 
 export const login = async (req, res) => {
@@ -71,16 +68,10 @@ const {email, password} = req.body;
       isTokenGenerated: true,
     });
 
-
   } catch (error) {
     console.log("error in login",error);
     return res.status(500).json({message:"internal server error"});
-    
   }
-
-
-
-
 };
 
 export const logout = async (req, res) => {
@@ -92,7 +83,6 @@ export const logout = async (req, res) => {
     return res.status(500).json({message:"internal server error"})
   }
 };
-
 
 export const check = async (req, res) => {
   try {
@@ -110,7 +100,6 @@ export const check = async (req, res) => {
     return res.status(500).json({message:"internal server error"});
   }
 }  
-
 
 export const getuser = async (req, res) => {
   try {

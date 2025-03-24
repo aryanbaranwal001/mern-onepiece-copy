@@ -9,5 +9,4 @@ theoryAuthorRoutes.post('/update/:theoryId', protectedRoute, update);
 theoryAuthorRoutes.get('/delete/:theoryId', protectedRoute, del);
 theoryAuthorRoutes.get('/getauthortheories', protectedRoute, getAuthorTheories);
 
-
 export default theoryAuthorRoutes;

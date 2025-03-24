@@ -4,21 +4,14 @@ import toast from "react-hot-toast";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuthStore } from "../store/useAuth.js";
 
-
-
-
 const Login = () => {
-  
-  
-
-
 
   const Navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "aryan@gmail.com",
     password: "123123123",
   });
-  const [isLogginIn, setIsLogginIn] = useState(false); // to show loading spinner
+  const [isLogginIn, setIsLogginIn] = useState(false);
   const { login } = useAuthStore();
 
   const validateInputs = () => {

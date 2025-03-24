@@ -5,7 +5,6 @@ import toast from "react-hot-toast";
 
 export default function MyThoeryRight() {
   const { gotUser, getUser } = useAuthStore();
-
   const userRef = useRef(null);
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
@@ -13,8 +12,8 @@ export default function MyThoeryRight() {
   useEffect(() => {
     const fetchUser = async () => {
       if (!userRef.current) {
-        const userData = await getUser(); // Wait for the resolved data
-        userRef.current = userData; // Store the actual data
+        const userData = await getUser(); 
+        userRef.current = userData; 
       }
     };
     fetchUser();
@@ -67,9 +66,10 @@ export default function MyThoeryRight() {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           className="placeholder-opacity-10 w-full text-2xl font-bold bg-transparent  border-gray-300 outline-none"
-        />
+          />
 
-        {/* Auto-growing Textarea */}
+
+        {/* Editable text */}
         <textarea
           value={text}
           placeholder="Theory"

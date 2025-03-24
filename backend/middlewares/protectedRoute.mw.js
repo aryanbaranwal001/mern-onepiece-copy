@@ -30,11 +30,7 @@ const protectedRoute = async (req, res, next) => {
   } catch (error) {
     console.error("error in protectedRoute",error);
     res.status(401).json({ message: 'Unauthorized' });
-    
   }
-
-
 };
-
 
 export default protectedRoute;

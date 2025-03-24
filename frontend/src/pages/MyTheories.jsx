@@ -5,14 +5,11 @@ const MyTheories = () => {
   return (
     <>
       <div className="grid grid-cols-2 gap-2 items-center">
-        {/* Your Theories  */}
-        <div className="flex items-center justify-center">
 
+        <div className="flex items-center justify-center">
           <MyTheoryLeft />
         </div>
 
-
-        {/* Create New Theory  */}
         <MyTheoryRight />
       </div>
     </>

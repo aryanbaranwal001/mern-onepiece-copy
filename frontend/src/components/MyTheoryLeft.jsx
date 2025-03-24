@@ -11,9 +11,10 @@ export default function MyTheoryLeft() {
   useEffect(() => {
     const fetchTheories = async () => {
       if (!theoriesRef.current) {
-        const theoriesDataWithUsername = await getAuthorTheories(); // Wait for the resolved data
-        theoriesRef.current = theoriesDataWithUsername; // Store the actual data
+        const theoriesDataWithUsername = await getAuthorTheories(); 
+        theoriesRef.current = theoriesDataWithUsername; 
         const theoryArr = theoriesRef.current.theories;
+
         // Initialize the state of areTheoriesUpdating
         const arr = [];
         for (let i = 0; i < theoryArr.length; i++) {
@@ -41,8 +42,8 @@ export default function MyTheoryLeft() {
         theoryId in item
           ? {
               [theoryId]: {
-                ...item[theoryId], // Preserve existing properties
-                isUpdating: true, // Toggle or modify fields
+                ...item[theoryId],
+                isUpdating: true,
               },
             }
           : item
@@ -69,7 +70,6 @@ export default function MyTheoryLeft() {
     }
   };
 
-
   const handleDelete = async (theoryId) => {
     try {
       const res = await axiosInstance.get(`/author/delete/${theoryId}`);
@@ -88,7 +88,6 @@ export default function MyTheoryLeft() {
         Your Posts
       </h2>
 
-      {/* Scrollable Posts with hidden scrollbar */}
       <div className="max-h-[700px] overflow-y-auto space-y-5 p-2 scrollbar-none">
         {theoriesRef.current
           ? theoriesRef.current.theories.map((comment, index) => (
@@ -100,7 +99,6 @@ export default function MyTheoryLeft() {
                   @{theoriesRef.current.username}
                 </p>
 
-                {/* Editable Title  */}
                 {areTheoriesUpdating[index][comment._id].isUpdating ? (
                   <input
                     type="text"
@@ -115,8 +113,8 @@ export default function MyTheoryLeft() {
                             ? {
                                 ...item,
                                 [comment._id]: {
-                                  ...item[comment._id], // Preserve existing fields
-                                  title: newTitle, // Update only title
+                                  ...item[comment._id], 
+                                  title: newTitle, 
                                 },
                               }
                             : item
@@ -146,8 +144,8 @@ export default function MyTheoryLeft() {
                             ? {
                                 ...item,
                                 [comment._id]: {
-                                  ...item[comment._id], // Preserve existing fields
-                                  text: newText, // Update only title
+                                  ...item[comment._id], 
+                                  text: newText, 
                                 },
                               }
                             : item
@@ -162,10 +160,9 @@ export default function MyTheoryLeft() {
                   <p className="text-gray-300 break-words whitespace-pre-wrap">{comment.text}</p>
                 )}
 
-
                 {areTheoriesUpdating[index][comment._id].isUpdating ? (
-                  // while updating buttons
 
+                  // Buttons for Update Post & Revert Back
                   <div className="flex gap-2 mt-2 items-center justify-center">
                     <button
                       onClick={() => UpdatePost(comment._id, index)}
@@ -180,17 +177,16 @@ export default function MyTheoryLeft() {
                         const text = comment.text;
 
                         // reverting title and text
-
                         setAreTheoriesUpdating((prev) =>
                           prev.map((item, i) =>
                             i === index
                               ? {
                                   ...item,
                                   [comment._id]: {
-                                    ...item[comment._id], // Preserve existing fields
-                                    title: title, // Update title
-                                    text: text, // Update title
-                                    isUpdating: false, // Update condition
+                                    ...item[comment._id], 
+                                    title: title, 
+                                    text: text, 
+                                    isUpdating: false,
                                   },
                                 }
                               : item
@@ -220,7 +216,6 @@ export default function MyTheoryLeft() {
                   </div>
                 )}
 
-                {/* Buttons for Delete & Update */}
               </div>
             ))
           : ""}

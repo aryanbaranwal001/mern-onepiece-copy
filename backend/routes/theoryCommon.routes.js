@@ -8,6 +8,4 @@ theoryCommonRoutes.get('/top', top)
 theoryCommonRoutes.post('/upvote/:upvoteId',protectedRoute, upvote)
 theoryCommonRoutes.post('/downvote/:downvoteId',protectedRoute, downvote)
 
-
-
 export default theoryCommonRoutes;
