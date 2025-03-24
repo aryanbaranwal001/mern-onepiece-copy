@@ -34,51 +34,98 @@ export const top = async (req, res) => {
 export const upvote = async (req, res) => {
   try {
     const userId = req.user._id;
-    const theoryId = req.params.upvoteId;
+    const theoryId = req.params.theoryId; // 
 
-    const updatedTheory = await TheoryModel.findByIdAndUpdate(
-      theoryId,
-      {
-        $addToSet: { upvotes: userId }, // Add userId if not already present
-        $pull: { downvotes: userId }, // Remove from downvotes if present
-      },
-      { new: true } // Return updated document
-    );
+    const theory = await TheoryModel.findById(theoryId);
 
-    if (!updatedTheory) {
+    if (!theory) {
       return res.status(404).json({ message: "Theory not found" });
     }
 
-    return res
-      .status(200)
-      .json({ message: "Upvoted successfully", theory: updatedTheory });
+    const isUpvoted = theory.upvotes.includes(userId);
+    const isDownvoted = theory.downvotes.includes(userId);
+
+    let update = {};
+
+    if (isUpvoted) {
+      // If already upvoted, remove the upvote (toggle off)
+      update = {
+        $pull: { upvotes: userId },
+        $inc: { upvoteCount: -1 },
+      };
+    } else if (isDownvoted) {
+      // If downvoted, remove from downvotes and add to upvotes
+      update = {
+        $pull: { downvotes: userId },
+        $addToSet: { upvotes: userId },
+        $inc: { downvoteCount: -1, upvoteCount: 1 },
+      };
+    } else {
+      // If neutral, just add the upvote
+      update = {
+        $addToSet: { upvotes: userId },
+        $inc: { upvoteCount: 1 },
+      };
+    }
+
+    const updatedTheory = await TheoryModel.findByIdAndUpdate(
+      theoryId,
+      update,
+      { new: true }
+    );
+
+    return res.status(200).json({ message: "Upvote updated", theory: updatedTheory });
   } catch (error) {
     console.log("error in upvote", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
 
+
 export const downvote = async (req, res) => {
   try {
     const userId = req.user._id;
-    const theoryId = req.params.downvoteId;
+    const theoryId = req.params.theoryId;
 
-    const updatedTheory = await TheoryModel.findByIdAndUpdate(
-      theoryId,
-      {
-        $addToSet: { downvotes: userId }, // Add userId to downvotes if not present
-        $pull: { upvotes: userId }, // Remove from upvotes if present
-      },
-      { new: true } // Return updated document
-    );
+    const theory = await TheoryModel.findById(theoryId);
 
-    if (!updatedTheory) {
+    if (!theory) {
       return res.status(404).json({ message: "Theory not found" });
     }
 
-    return res
-      .status(200)
-      .json({ message: "Downvoted successfully", theory: updatedTheory });
+    const isUpvoted = theory.upvotes.includes(userId);
+    const isDownvoted = theory.downvotes.includes(userId);
+
+    let update = {};
+
+    if (isDownvoted) {
+      // If already downvoted, remove the downvote (toggle off)
+      update = {
+        $pull: { downvotes: userId },
+        $inc: { downvoteCount: -1 },
+      };
+    } else if (isUpvoted) {
+      // If upvoted, remove from upvotes and add to downvotes
+      update = {
+        $pull: { upvotes: userId },
+        $addToSet: { downvotes: userId },
+        $inc: { upvoteCount: -1, downvoteCount: 1 },
+      };
+    } else {
+      // If neutral, just add the downvote
+      update = {
+        $addToSet: { downvotes: userId },
+        $inc: { downvoteCount: 1 },
+      };
+    }
+
+    const updatedTheory = await TheoryModel.findByIdAndUpdate(
+      theoryId,
+      update,
+      { new: true }
+    );
+
+    return res.status(200).json({ message: "Downvote updated", theory: updatedTheory });
   } catch (error) {
     console.log("error in downvote", error);
     return res.status(500).json({ message: "Internal server error" });

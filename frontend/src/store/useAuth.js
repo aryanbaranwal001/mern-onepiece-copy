@@ -8,6 +8,7 @@ export const useAuthStore = create((set) => ({
   gotAuthorTheories: false,
   gotLatestTheories: false,
   gotAuthors: false,
+  isVotedArrayComplete: false,
   check: async () => {
     try {
       const res = await axiosInstance.get("/auth/check");
@@ -74,5 +75,8 @@ export const useAuthStore = create((set) => ({
     } catch (err) {
       console.error(err);
     }
+  },
+  setIsVotedArray: () => {
+    set({ isVotedArrayComplete: true });
   },
 }));
