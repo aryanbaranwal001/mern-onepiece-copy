@@ -3,10 +3,9 @@ import { axiosInstance } from "../lib/axios.js";
 
 export const useAuthStore = create((set) => ({
   userLoggedIn: false,
-  loading: false,
+  loading: true,
   check: async () => {
     try {
-      set({ loading: true }); // Indicate loading state
       const res = await axiosInstance.get("/auth/check");
       set({ userLoggedIn: res.data.userLoggedIn, loading: false });
     } catch (error) {

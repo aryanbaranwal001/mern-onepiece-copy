@@ -11,7 +11,7 @@ const App = () => {
 
   useEffect(() => {
     check();
-  }, []); // 
+  }, [check]); // 
 
   
   if (loading) return <p>Loading...</p>;
