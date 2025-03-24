@@ -110,3 +110,15 @@ export const check = async (req, res) => {
     return res.status(500).json({message:"internal server error"});
   }
 }  
+
+
+export const getuser = async (req, res) => {
+  try {
+    const user = req.user;
+    console.log(user);
+    return res.status(200).json(user);
+  } catch (error) {
+    console.log("error in getUser",error);
+    return res.status(500).json({message:"internal server error"});
+  }
+}

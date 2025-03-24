@@ -4,6 +4,7 @@ import { axiosInstance } from "../lib/axios.js";
 export const useAuthStore = create((set) => ({
   userLoggedIn: false,
   loading: true,
+  gotUser: false,
   check: async () => {
     try {
       const res = await axiosInstance.get("/auth/check");
@@ -36,4 +37,15 @@ export const useAuthStore = create((set) => ({
       console.log("error in useAuthStore.Login:", error);
     }
   },
+  getUser: async () => {
+    try {
+      const res = await axiosInstance.get("/auth/getuser");
+      set({ gotUser: true });
+      return res.data;
+
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
 }));

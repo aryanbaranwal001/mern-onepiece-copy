@@ -8,6 +8,12 @@ export const create = async (req, res) => {
     if (!title || !text) {
       return res.status(400).send("Title and text are required");
     }
+    const theory = await TheoryModel.findOne({
+      title});
+    
+      if (theory) {
+      return res.status(200).send({doesTheoryExit: true, message: "Theory already exists"});
+    }
 
     const newTheory = await new TheoryModel({
       title,
@@ -17,7 +23,7 @@ export const create = async (req, res) => {
 
     await newTheory.save();
     
-    res.status(201).send("New theory created");
+    res.status(201).send({ message: "Theory created successfully", isTheoryCreated: true });
 
   } catch (error) {
     console.log("error in create", error);

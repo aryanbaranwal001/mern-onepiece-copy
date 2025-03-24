@@ -1,6 +1,7 @@
 import { CircleUserRound, LogOut } from "lucide-react";
 import { useAuthStore } from "../store/useAuth";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -21,8 +22,20 @@ const Navbar = () => {
             alt="onepieceimg"
           />
           <div className="flex-1 flex  justify-start items-center">
-            <a className=" text-[26px] text-primary">One Piece Theories</a>
+            <a className=" text-[24px] text-primary">One Piece Theories</a>
           </div>
+        </div>
+
+        <div className="flex flex-col items-center justify-center gap-1  lg:flex-row lg:gap-10 lg:pl-[-30px]">
+          <Link to="/top" className="text-[20px] text-secondary">
+            Top Theories
+          </Link>
+          <Link to="/latest" className="text-[20px] text-secondary">
+            Latest Theories
+          </Link>
+          <Link to="/mytheories" className="text-[20px] text-secondary">
+            My Theories
+          </Link>
         </div>
 
         <div className="dropdown dropdown-end pr-9">
