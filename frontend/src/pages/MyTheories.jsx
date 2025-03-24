@@ -1,11 +1,16 @@
-import MyTheoryRight from "../components/MyThoeryRight";
+import MyTheoryRight from "../components/MyTheoryRight";
+import MyTheoryLeft from "../components/MyTheoryLeft";
 
 const MyTheories = () => {
   return (
     <>
-      <div className="grid grid-cols-2 h-screen gap-2">
+      <div className="grid grid-cols-2 gap-2 items-center">
         {/* Your Theories  */}
-        <div className="h-full w-full bg-slate-50">a</div>
+        <div className="flex items-center justify-center">
+
+          <MyTheoryLeft />
+        </div>
+
 
         {/* Create New Theory  */}
         <MyTheoryRight />

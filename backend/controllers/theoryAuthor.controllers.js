@@ -81,3 +81,21 @@ export const del = async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
+
+export const getAuthorTheories = async (req, res) => {
+  const userId = req.user._id;
+
+  try {
+    const theories = await TheoryModel.find({ author: userId });
+
+    if (!theories) {
+      return res.status(404).json({ message: "Theories not found" }).sort({ createdAt: 1 });;
+    }
+
+    return res.status(200).json(theories);
+  } catch (error) {
+    console.log("Error getting author theories:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+}

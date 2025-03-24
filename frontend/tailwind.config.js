@@ -6,7 +6,11 @@ export default {
     themes: ["light", "dark", "forest"],
   },
   theme: {
-    extend: {},
+    extend: {
+      scrollbar: {
+        none: "scrollbar-width-none::-webkit-scrollbar { display: none; }",
+      },
+    },
   },
   plugins: [
     daisyui,

@@ -9,8 +9,6 @@ export default function MyThoeryRight() {
   const userRef = useRef(null);
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
-  const textAreaRef = useRef(null);
-  // Adjust textarea height dynamically
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -18,15 +16,9 @@ export default function MyThoeryRight() {
         const userData = await getUser(); // Wait for the resolved data
         userRef.current = userData; // Store the actual data
       }
-
-      if (textAreaRef.current) {
-        textAreaRef.current.style.height = "auto"; // Reset height
-        textAreaRef.current.style.height =
-          Math.min(textAreaRef.current.scrollHeight, 420) + "px"; // Max height: 240px
-      }
     };
     fetchUser();
-  }, [text]);
+  }, []);
 
   if (!gotUser) {
     return <p>Loading.....</p>;
@@ -55,12 +47,13 @@ export default function MyThoeryRight() {
     <div className="h-full w-full  flex justify-center">
       <form
         onSubmit={handlePost}
-        className="min-w-[390px] min-h-[500px] max-h-[600px] bg-neutral m-4 p-4 rounded-xl shadow-md"
+        className="min-w-[390px] min-h-[500px] max-h-[600px] bg-neutral m-4 p-4 rounded-xl shadow-md mt-[120px]"
       >
         {/* User Info */}
-        <div className="flex items-center gap-3 mb-5">
-          <span className="font-semibold">
-            {"@"}{userRef.current ? userRef.current.username : "Username"}
+        <div className="flex items-center  gap-3 mb-1">
+          <span className="text-sm text-[20px] text-gray-500">
+            {"@"}
+            {userRef.current ? userRef.current.username : "Username"}
           </span>
         </div>
 
@@ -75,11 +68,10 @@ export default function MyThoeryRight() {
 
         {/* Auto-growing Textarea */}
         <textarea
-          ref={textAreaRef}
           value={text}
           placeholder="Theory"
           onChange={(e) => setText(e.target.value)}
-          className="placeholder-opacity-10 w-full min-h-[50px] max-h-[420px] bg-transparent border p-2 mt-2 border-gray-300 rounded-lg outline-none resize-none overflow-hidden"
+          className="placeholder-opacity-10 w-full min-h-[420px] max-h-[420px] bg-transparent border p-2 mt-2 border-gray-300 rounded-lg outline-none resize-none overflow-y-auto"
         ></textarea>
 
         {/* Action Buttons */}
