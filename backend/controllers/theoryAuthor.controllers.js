@@ -75,7 +75,7 @@ export const del = async (req, res) => {
 
     await TheoryModel.findByIdAndDelete(theoryId);
 
-    return res.status(200).json({ message: "Theory deleted successfully" });
+    return res.status(200).json({ message: "Theory deleted successfully", isTheoryDeleted: true });
   } catch (error) {
     console.log("Error deleting theory:", error);
     return res.status(500).json({ message: "Internal server error" });
