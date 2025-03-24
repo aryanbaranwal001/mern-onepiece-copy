@@ -14,7 +14,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="relative">
+      <div className="relative z-[20]">
           <div className="h-[78px]">
 
           </div>

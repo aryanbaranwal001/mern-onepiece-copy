@@ -6,6 +6,7 @@ export const useAuthStore = create((set) => ({
   loading: true,
   gotUser: false,
   gotAuthorTheories: false,
+  gotLatestTheories: false,
   check: async () => {
     try {
       const res = await axiosInstance.get("/auth/check");
@@ -55,5 +56,14 @@ export const useAuthStore = create((set) => ({
     } catch (err) {
       console.error(err);
     }
-  }
+  },
+  getLatestTheories: async () => {
+    try {
+      const res = await axiosInstance.get("/common/latest");
+      set({ gotLatestTheories: true });
+      return res.data;
+    } catch (err) {
+      console.error(err);
+    }
+  },
 }));

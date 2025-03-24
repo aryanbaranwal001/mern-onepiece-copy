@@ -74,10 +74,7 @@ export default function MyTheoryLeft() {
     try {
       const res = await axiosInstance.get(`/author/delete/${theoryId}`);
       if (res.data.isTheoryDeleted === true) {
-        toast.success("Theory Deleted Successfully");
-        setTimeout(() => {
           window.location.reload();
-        }, 400);
       }
     } catch (error) {
       console.log("error in handleDelete", error);
@@ -131,7 +128,7 @@ export default function MyTheoryLeft() {
                 transition"
                   />
                 ) : (
-                  <h3 className="text-lg font-semibold">{comment.title}</h3>
+                  <h3 className="text-lg font-semibold break-words">{comment.title}</h3>
                 )}
 
                 {/* Editable Text  */}
@@ -162,12 +159,9 @@ export default function MyTheoryLeft() {
                 transition"
                   />
                 ) : (
-                  <p className="text-gray-300">{comment.text}</p>
+                  <p className="text-gray-300 break-words whitespace-pre-wrap">{comment.text}</p>
                 )}
 
-                {console.log(
-                  areTheoriesUpdating[index][comment._id].isUpdating
-                )}
 
                 {areTheoriesUpdating[index][comment._id].isUpdating ? (
                   // while updating buttons
