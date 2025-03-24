@@ -87,10 +87,10 @@ export const getAuthorTheories = async (req, res) => {
   const userId = req.user._id;
 
   try {
-    const theories = await TheoryModel.find({ author: userId });
+    const theories = await TheoryModel.find({ author: userId }).sort({ createdAt: -1 });
 
     if (!theories) {
-      return res.status(404).json({ message: "Theories not found" }).sort({ createdAt: 1 });;
+      return res.status(404).json({ message: "Theories not found" });
     }
 
     return res.status(200).json(theories);
