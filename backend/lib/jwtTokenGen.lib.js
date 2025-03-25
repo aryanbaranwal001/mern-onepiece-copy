@@ -4,7 +4,7 @@ import { get } from 'mongoose';
 dotenv.config();
 
 const SAME_SITE = process.env.SAME_SITE;
-const SECURE = null;
+let SECURE = null;
  
 const getSecure = process.env.SECURE;
   if (getSecure === "true") {
