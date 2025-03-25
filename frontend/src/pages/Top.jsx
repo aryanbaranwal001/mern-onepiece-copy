@@ -185,7 +185,7 @@ export default function Latest() {
                     {theory.title}
                   </h3>
 
-                  <p className="text-gray-300 break-words whitespace-pre-wrap">
+                  <p className="text-gray-300 break-words whitespace-pre-wrap w-[89%]">
                     {theory.text}
                   </p>
 
