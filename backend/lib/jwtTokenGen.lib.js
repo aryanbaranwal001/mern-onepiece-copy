@@ -1,9 +1,21 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import { get } from 'mongoose';
 dotenv.config();
 
 const SAME_SITE = process.env.SAME_SITE;
-const SECURE = process.env.SECURE;
+const SECURE = null;
+ 
+const getSecure = process.env.SECURE;
+  if (getSecure === "true") {
+    SECURE = true;
+  }
+  else {
+    SECURE = false;
+  }
+
+
+
 const JWT_SECRET = process.env.JWT_SECRET;
 
 const generateToken = (userId, res) => {
