@@ -4,7 +4,6 @@ import generateToken from "../lib/jwtTokenGen.lib.js";
 import jwt from "jsonwebtoken";
 
 export const signup = async (req, res) => {
-  
   try {
   const {username, email, password} = req.body;
   // checks if all fields are correct

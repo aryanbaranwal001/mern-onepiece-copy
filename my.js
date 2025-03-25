@@ -1,9 +1,16 @@
+// todo 
+// in index.js
+const FRONTEND_URL_BASE = process.env.FRONTEND_URL_BASE || "http://localhost:5173";
+
+// in axios.js from frontend/src  check
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL + "/api";
 
 /////////////////////////// commit check
 // in frontend/src
 
 import axios from "axios";
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL + "/api";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL + "/api";//
+// in baseUrl, dont put condition there
 
 
 export const axiosInstance = axios.create({
