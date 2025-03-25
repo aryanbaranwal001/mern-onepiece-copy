@@ -22,6 +22,9 @@ const generateToken = (userId, res) => {
     secure: SECURE,
   });
   console.log("token generated, cookie");
+  console.log("token generated, cookie", token);
+  console.log("token generated, cookie", SAME_SITE, typeof(SAME_SITE));
+  console.log("token generated, cookie", SECURE, typeof(SECURE));
   return token;
 }
 
