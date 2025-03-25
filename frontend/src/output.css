@@ -2023,6 +2023,10 @@ html {
   width: 400px;
 }
 
+.w-\[89\%\] {
+  width: 89%;
+}
+
 .w-full {
   width: 100%;
 }
