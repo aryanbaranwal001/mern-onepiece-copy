@@ -14,6 +14,7 @@ const PORT = process.env.PORT || 3000;
 const FRONTEND_URL_BASE = process.env.FRONTEND_URL_BASE || "http://localhost:5173";
 
 console.log(FRONTEND_URL_BASE);
+
 app.use(cors({
   origin: FRONTEND_URL_BASE, 
   credentials: true,
