@@ -18,7 +18,12 @@ const App = () => {
     <>
       <Toaster />
       {userLoggedIn ? <Navbar /> : ""}
+
       <Routes>
+        <Route
+          path="/"
+          element={<Navigate to="/signup" />}
+        />
         <Route
           path="/top"
           element={userLoggedIn ? <Top /> : <Navigate to="/signup" />}

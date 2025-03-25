@@ -11,10 +11,14 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const FRONTEND_URL_BASE = process.env.FRONTEND_URL_BASE || "http://localhost:3000";
+
+
 app.use(cors({
-  origin: 'http://localhost:5173',
-  credentials: true // allow cookies and authorization headers
+  origin: FRONTEND_URL_BASE, 
+  credentials: true,
 }));
+
 app.use(cookieParser());
 app.use(express.json());
 
